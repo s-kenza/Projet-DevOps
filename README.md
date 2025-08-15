@@ -6,7 +6,7 @@ Bienvenue sur le projet de déploiement complet d'une infrastructure Scaleway Ka
 
 - Kenza SCHULER
 - Arnaud GOUEL
-- Antoine Falgiglio
+- Antoine FALGIGLIO
 - Loan COURCHINOUX-BILLONNET
 
 ## 🚀 Objectif
