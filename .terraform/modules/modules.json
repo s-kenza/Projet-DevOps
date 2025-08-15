@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"load_balancer","Source":"git::https://github.com/christian-vdz/terraform-scaleway-lb.git?ref=v1.0.2","Dir":".terraform/modules/load_balancer"}]}
