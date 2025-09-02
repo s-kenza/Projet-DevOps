@@ -30,8 +30,9 @@ provider "scaleway" {
 provider "kubernetes" {
   host                   = null_resource.kubeconfig.triggers.host
   token                  = null_resource.kubeconfig.triggers.token
-  cluster_ca_certificate = base64decode(null_resource.kubeconfig.triggers.cluster_ca_certificate)
-}
+  cluster_ca_certificate = base64decode(
+      null_resource.kubeconfig.triggers.cluster_ca_certificate
+)}
 
 # Provider Helm
 provider "helm" {
