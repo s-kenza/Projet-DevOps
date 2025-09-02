@@ -11,7 +11,6 @@ resource "scaleway_domain_record" "wordpress" {
   ttl      = 3600
 }
 
-# Alternative : Affichage des informations pour configuration manuelle
 resource "null_resource" "dns_info" {
   depends_on = [data.kubernetes_service.ingress_nginx]
   

@@ -1,4 +1,4 @@
-# Namespace pour WordPress avec ton prénom
+
 resource "kubernetes_namespace" "wordpress" {
   depends_on = [null_resource.kubeconfig]
   
@@ -12,7 +12,6 @@ resource "kubernetes_namespace" "wordpress" {
   }
 }
 
-# Déploiement de WordPress avec nom personnalisé
 resource "helm_release" "wordpress" {
   depends_on = [helm_release.ingress_nginx, kubernetes_namespace.wordpress]
   
@@ -22,7 +21,6 @@ resource "helm_release" "wordpress" {
   namespace  = kubernetes_namespace.wordpress.metadata[0].name
   version    = "18.0.0"
   
-  # Configuration de WordPress
   set {
     name  = "wordpressUsername"
     value = "admin"
@@ -53,7 +51,6 @@ resource "helm_release" "wordpress" {
     value = "ClusterIP"
   }
   
-  # Configuration d'Ingress
   set {
     name  = "ingress.enabled"
     value = "true"
@@ -69,13 +66,11 @@ resource "helm_release" "wordpress" {
     value = var.wordpress_domain
   }
   
-  # Annotations pour l'ingress
   set {
     name  = "ingress.annotations.kubernetes\\.io/ingress\\.class"
     value = "nginx"
   }
   
-  # Configuration de la base de données
   set {
     name  = "mariadb.enabled"
     value = "true"
@@ -101,7 +96,6 @@ resource "helm_release" "wordpress" {
     value = "WordPressPassword123-${var.student_name}!"
   }
   
-  # Configuration des ressources
   set {
     name  = "resources.requests.memory"
     value = "512Mi"
@@ -112,17 +106,14 @@ resource "helm_release" "wordpress" {
     value = "300m"
   }
   
-  # Désactiver la persistance pour simplifier
   set {
     name  = "persistence.enabled"
     value = "false"
   }
   
-  # Attendre que WordPress soit prêt
   wait          = true
   wait_for_jobs = true
   timeout       = 600
   
-  # Éviter les erreurs de validation
   skip_crds = true
 }

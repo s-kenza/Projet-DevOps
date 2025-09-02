@@ -19,7 +19,7 @@ variable "project_name" {
 variable "wordpress_domain" {
   description = "Domaine pour WordPress"
   type        = string
-  default     = "mon-wordpress.example.com"
+  default     = "mon-wordpress.esgi.slashops.fr"
 
   validation {
     condition = can(regex("^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$", var.wordpress_domain))

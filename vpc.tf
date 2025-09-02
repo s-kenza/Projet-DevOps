@@ -1,4 +1,4 @@
-# VPC avec ton prénom
+
 resource "scaleway_vpc" "main" {
   name = "${var.project_name}-${var.student_name}-vpc"
   
@@ -10,7 +10,6 @@ resource "scaleway_vpc" "main" {
   ]
 }
 
-# Réseau privé avec ton prénom
 resource "scaleway_vpc_private_network" "main" {
   name   = "${var.project_name}-${var.student_name}-private-network"
   vpc_id = scaleway_vpc.main.id
@@ -23,7 +22,6 @@ resource "scaleway_vpc_private_network" "main" {
   ]
 }
 
-# Passerelle publique avec ton prénom
 resource "scaleway_vpc_public_gateway" "main" {
   name = "${var.project_name}-${var.student_name}-gateway"
   type = "VPC-GW-S"
@@ -36,7 +34,6 @@ resource "scaleway_vpc_public_gateway" "main" {
   ]
 }
 
-# Connexion de la passerelle au réseau privé
 resource "scaleway_vpc_gateway_network" "main" {
   gateway_id         = scaleway_vpc_public_gateway.main.id
   private_network_id = scaleway_vpc_private_network.main.id

@@ -1,4 +1,4 @@
-# Namespace pour Nginx Ingress avec ton prénom
+
 resource "kubernetes_namespace" "ingress_nginx" {
   depends_on = [null_resource.kubeconfig]
   
@@ -12,7 +12,6 @@ resource "kubernetes_namespace" "ingress_nginx" {
   }
 }
 
-# Déploiement du contrôleur Ingress Nginx avec nom personnalisé
 resource "helm_release" "ingress_nginx" {
   depends_on = [kubernetes_namespace.ingress_nginx]
   
@@ -32,7 +31,6 @@ resource "helm_release" "ingress_nginx" {
     value = "LB-S"
   }
   
-  # Nom personnalisé pour le Load Balancer
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/scw-loadbalancer-name"
     value = "${var.project_name}-${var.student_name}-lb"
@@ -43,7 +41,6 @@ resource "helm_release" "ingress_nginx" {
   timeout       = 600
 }
 
-# Récupération de l'IP du Load Balancer
 data "kubernetes_service" "ingress_nginx" {
   depends_on = [helm_release.ingress_nginx]
   

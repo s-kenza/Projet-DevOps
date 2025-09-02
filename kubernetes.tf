@@ -1,4 +1,4 @@
-# Cluster Kubernetes avec ton prénom
+
 resource "scaleway_k8s_cluster" "main" {
   name    = "${var.project_name}-${var.student_name}-cluster"
   version = "1.32.3"
@@ -14,8 +14,7 @@ resource "scaleway_k8s_cluster" "main" {
     "managed-by:terraform"
   ]
 }
-
-# Pool de nœuds avec ton prénom
+  
 resource "scaleway_k8s_pool" "main" {
   cluster_id = scaleway_k8s_cluster.main.id
   name       = "${var.project_name}-${var.student_name}-pool"
@@ -39,13 +38,12 @@ resource "scaleway_k8s_pool" "main" {
 resource "scaleway_k8s_pool" "main_pool" {
   cluster_id = scaleway_k8s_cluster.main.id
   name       = "main-pool"
-  node_type  = "DEV1-M" # ou un autre type de nœud selon ton budget
+  node_type  = "DEV1-M"
   size       = 1
   autoscaling = false
   tags       = ["devops", "wordpress"]
 }
 
-# Ressource pour stocker le kubeconfig
 resource "null_resource" "kubeconfig" {
   depends_on = [scaleway_k8s_pool.main]
   
